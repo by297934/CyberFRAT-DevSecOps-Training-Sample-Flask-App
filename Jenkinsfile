@@ -12,7 +12,7 @@ pipeline {
         script {
           echo "Running TruffleHog secret scan..."
 
-          sh "docker run trufflesecurity/trufflehog:latest --json https://github.com/by297934/CyberFRAT-DevSecOps-Training-Sample-Flask-App > trufflehog-report.json" || true
+          sh "docker run trufflesecurity/trufflehog:latest --json https://github.com/by297934/CyberFRAT-DevSecOps-Training-Sample-Flask-App > trufflehog-report.json || true"
 
           archiveArtifacts artifacts: 'trufflehog-report.json', allowEmptyArchive: true
 
