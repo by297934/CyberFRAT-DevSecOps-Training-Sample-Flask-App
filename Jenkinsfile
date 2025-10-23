@@ -7,13 +7,12 @@ pipeline {
   agent any
   stages {
     stage('Check for Secrets') {
-  stage('Check for Secrets') {
-  steps {
-    script {
-      echo "🔍 Running TruffleHog secret scan..."
+      steps {
+        script {
+          echo "🔍 Running TruffleHog secret scan..."
 
       // Run TruffleHog and save output to a JSON report file
-      sh '''
+        sh '''
         docker run --rm \
           -v $(pwd):/repo \
           trufflesecurity/trufflehog \
@@ -35,6 +34,7 @@ pipeline {
     }
   }
 }
+    }
     stage('Build Docker Image') {
       steps {
         script {
