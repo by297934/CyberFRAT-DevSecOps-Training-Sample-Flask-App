@@ -6,6 +6,18 @@ pipeline {
   }
   agent any
   stages {
+    stage('Check for Secrets') {
+  steps {
+    script {
+      sh '''
+        docker run --rm \
+          -v $(pwd):/repo \
+          trufflesecurity/trufflehog:latest \
+          filesystem /repo --fail
+      '''
+    }
+  }
+}
     stage('Build Docker Image') {
       steps {
         script {
