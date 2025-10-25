@@ -17,8 +17,7 @@ pipeline {
       steps {
         script {
           sh "pipx install safety"
-          sh "safety --version"
-          sh "safety --key ${SAFETY_KEY} scan ${WORKSPACE} > saftey.json"
+          sh '/var/lib/jenkins/.local/bin/safety scan --key "$saftey_key" "${WORKSPACE}" --json > safety.json'
           
           archiveArtifacts artifacts: 'saftey.json', allowEmptyArchive: true
         }
