@@ -16,8 +16,8 @@ pipeline {
     stage('Check for Secrets') {
       steps {
         script {
-          echo "Running TruffleHog secret scan..."
           sh "pipx install safety"
+          sh "safety --version"
           sh "rm -rf saftey.json || true"
           sh "safety scan requirement.txt --key ${saftey_key} > saftey.json"
           archiveArtifacts artifacts: 'saftey.json', allowEmptyArchive: true
