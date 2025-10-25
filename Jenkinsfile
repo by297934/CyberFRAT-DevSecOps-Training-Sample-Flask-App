@@ -16,10 +16,15 @@ pipeline {
     stage('Check for Secrets') {
       steps {
         script {
-          sh "pipx install safety"
-          sh "safety --version"
-          sh "rm -rf saftey.json || true"
-          sh "safety scan requirement.txt --key ${saftey_key} > saftey.json"
+          sh '''
+          python3 -m venv venv
+          . venv/bin/activate
+          pip install --upgrade pip
+          pip install safety
+          safety --version
+          rm -rf saftey.json || true
+          safety scan requirement.txt --key ${saftey_key} --json > saftey.json
+          '''
           archiveArtifacts artifacts: 'saftey.json', allowEmptyArchive: true
         }
       }
