@@ -3,7 +3,7 @@ pipeline {
     registry = "bharat1200/testrep"
     registryCredential = "dockcred"
     dockerImage = ''
-    saftey-key = credentials('saftey')
+    saftey_key = credentials('safety')
   }
   agent any
 
@@ -19,7 +19,7 @@ pipeline {
           echo "Running TruffleHog secret scan..."
           sh "sh pipx install safety"
           sh "rm -rf saftey.json || true"
-          sh "saftey scan requirement.txt --key $saftey-key"
+          sh "saftey scan requirement.txt --key $saftey_key"
           archiveArtifacts artifacts: 'trufflehog-report.json', allowEmptyArchive: true
         }
       }
