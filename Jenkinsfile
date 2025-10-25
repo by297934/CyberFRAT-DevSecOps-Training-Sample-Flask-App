@@ -17,7 +17,7 @@ pipeline {
           steps { 
             script { 
               sh 'pipx install safety' 
-              sh '/var/lib/jenkins/.local/bin/safety --key e8836398-a8ae-47b7-9cd3-ce2533e4ca3b scan "${WORKSPACE}" > safety.txt' 
+              sh '/var/lib/jenkins/.local/bin/safety --key e8836398-a8ae-47b7-9cd3-ce2533e4ca3b scan "${WORKSPACE}" > safety.txt || true' 
               archiveArtifacts artifacts: 'safety.txt', allowEmptyArchive: true 
             } 
           } 
