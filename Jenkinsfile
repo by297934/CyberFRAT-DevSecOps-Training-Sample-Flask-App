@@ -13,17 +13,15 @@ pipeline {
         checkout scm
       }
     }
-    stage('Check for Secrets') {
-      steps {
-        withCredentials([string(credentialsId: 'safety', variable: 'SAFETY_KEY')]) {
-          sh '''
-          pipx install safety
-          /var/lib/jenkins/.local/bin/safety --key "$SAFETY_KEY" scan "$WORKSPACE" > safety.txt
-          '''
-          archiveArtifacts artifacts: 'safety.txt', allowEmptyArchive: true
+    stage('scan') {
+          steps { 
+            script { 
+              sh 'pipx install safety' 
+              sh '/var/lib/jenkins/.local/bin/safety --key e8836398-a8ae-47b7-9cd3-ce2533e4ca3b scan "${WORKSPACE}" > safety.txt' 
+              archiveArtifacts artifacts: 'safety.txt', allowEmptyArchive: true 
+            } 
+          } 
         }
-      }
-    }
 
     stage('Build Docker Image') {
       steps {
