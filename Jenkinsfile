@@ -3,7 +3,7 @@ pipeline {
     registry = "bharat1200/testrep"
     registryCredential = "dockcred"
     dockerImage = ''
-    saftey_key = credentials('safety')
+    SAFETY_KEY = credentials('safety')
   }
   agent any
 
@@ -15,11 +15,11 @@ pipeline {
     }
     stage('Check for Secrets') {
       steps {
-        script {
-         sh '''
-         pipx install safety
-         /var/lib/jenkins/.local/bin/safety --key "$saftey_key" scan "$WORKSPACE" > safety.txt || true
-          '''         
+        withCredentials([string(credentialsId: 'safety', variable: 'SAFETY_KEY')]) {
+          sh '''
+          pipx install safety
+          /var/lib/jenkins/.local/bin/safety --key "$SAFETY_KEY" scan "$WORKSPACE" > safety.txt
+          '''
           archiveArtifacts artifacts: 'safety.txt', allowEmptyArchive: true
         }
       }
