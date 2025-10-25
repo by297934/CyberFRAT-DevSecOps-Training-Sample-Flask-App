@@ -17,7 +17,7 @@ pipeline {
         script {
           echo "Running TruffleHog secret scan..."
           sh "docker run --rm -v ${WORKSPACE}:/src trufflesecurity/trufflehog:latest git file:///src --json > trufflehog-report.json || true"
-          archiveArtifacts artifacts: 'trufflehog-report.json', allowEmptyArchive: false
+          archiveArtifacts artifacts: 'trufflehog-report.json', allowEmptyArchive: true
           sh '''
             if grep -q '"DetectorType"' trufflehog-report.json; then
               echo "Secrets detected! Failing pipeline."
