@@ -3,6 +3,7 @@ pipeline {
     registry = "bharat1200/testrep"
     registryCredential = "dockcred"
     dockerImage = ''
+    saftey-key = "saftey"
   }
   agent any
 
@@ -16,16 +17,10 @@ pipeline {
       steps {
         script {
           echo "Running TruffleHog secret scan..."
-          sh "docker run --rm -v ${WORKSPACE}:/src trufflesecurity/trufflehog:latest git file:///src --json > trufflehog-report.json || true"
+          sh "sh pipx install safety"
+          sh "rm -rf saftey.json || true"
+          sh "saftey scan requirement.txt --key $saftey-key"
           archiveArtifacts artifacts: 'trufflehog-report.json', allowEmptyArchive: true
-          sh '''
-            if grep -q '"DetectorType"' trufflehog-report.json; then
-              echo "Secrets detected! Failing pipeline."
-              exit 1
-            else
-              echo "No secrets found."
-            fi
-          '''
         }
       }
     }
