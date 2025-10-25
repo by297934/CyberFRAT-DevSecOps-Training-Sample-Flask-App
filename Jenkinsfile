@@ -23,7 +23,7 @@ pipeline {
           safety --version
           rm -rf saftey.json || true
           pwd
-          safety --key $SAFETY_KEY scan > saftey.json
+          safety --key $SAFETY_KEY scan "${WORKSPACE}" > saftey.json
           '''
           archiveArtifacts artifacts: 'saftey.json', allowEmptyArchive: true
         }
