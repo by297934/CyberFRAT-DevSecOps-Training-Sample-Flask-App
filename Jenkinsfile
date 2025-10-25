@@ -19,7 +19,7 @@ pipeline {
           echo "Running TruffleHog secret scan..."
           sh "pipx install safety"
           sh "rm -rf saftey.json || true"
-          sh "saftey scan requirement.txt --key $saftey_key"
+          sh "saftey scan requirement.txt --key ${saftey_key}"
           archiveArtifacts artifacts: 'trufflehog-report.json', allowEmptyArchive: true
         }
       }
