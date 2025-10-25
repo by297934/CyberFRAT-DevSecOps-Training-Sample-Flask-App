@@ -23,7 +23,7 @@ pipeline {
           pip install safety
           safety --version
           rm -rf saftey.json || true
-          safety check --key $SAFETY_KEY --file=requirements.txt --json > saftey.json
+          safety --key $SAFETY_KEY scan requirements.txt --json > saftey.json
           '''
           archiveArtifacts artifacts: 'saftey.json', allowEmptyArchive: true
         }
