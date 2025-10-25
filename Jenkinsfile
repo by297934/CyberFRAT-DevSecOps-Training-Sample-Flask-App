@@ -16,8 +16,8 @@ pipeline {
     stage('Check for Secrets') {
       steps {
         script {
-          sh "pipx install safety"
-          sh "/var/lib/jenkins/.local/bin/safety --key '$saftey_key' scan '${WORKSPACE}' > safety.txt"         
+          sh 'pipx install safety'
+          sh '/var/lib/jenkins/.local/bin/safety --key "${saftey_key}" scan "${WORKSPACE}" > safety.txt'         
           archiveArtifacts artifacts: 'safety.txt', allowEmptyArchive: true
         }
       }
