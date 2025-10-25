@@ -3,7 +3,7 @@ pipeline {
     registry = "bharat1200/testrep"
     registryCredential = "dockcred"
     dockerImage = ''
-    saftey-key = "saftey"
+    saftey-key = credentials('saftey')
   }
   agent any
 
