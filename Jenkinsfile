@@ -16,10 +16,7 @@ pipeline {
     stage('Check for Secrets') {
       steps {
         script {
-          sh '''
-          python3 -m venv venv
-          . venv/bin/activate
-          '''
+          sh "safety --version"
           sh "safety --key ${SAFETY_KEY} scan ${WORKSPACE} > saftey.json"
           
           archiveArtifacts artifacts: 'saftey.json', allowEmptyArchive: true
