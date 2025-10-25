@@ -16,6 +16,7 @@ pipeline {
     stage('Check for Secrets') {
       steps {
         script {
+          sh "pipx install safety"
           sh "safety --version"
           sh "safety --key ${SAFETY_KEY} scan ${WORKSPACE} > saftey.json"
           
