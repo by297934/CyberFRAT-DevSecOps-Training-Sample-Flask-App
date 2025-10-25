@@ -19,12 +19,9 @@ pipeline {
           sh '''
           python3 -m venv venv
           . venv/bin/activate
-          pip install safety
-          safety --version
-          rm -rf saftey.json || true
-          pwd
-          safety --key $SAFETY_KEY scan "${WORKSPACE}" > saftey.json
           '''
+          sh "safety --key ${SAFETY_KEY} scan ${WORKSPACE} > saftey.json"
+          
           archiveArtifacts artifacts: 'saftey.json', allowEmptyArchive: true
         }
       }
