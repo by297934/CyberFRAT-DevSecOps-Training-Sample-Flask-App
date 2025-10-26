@@ -24,7 +24,6 @@ pipeline {
     }    
     stage('Snyk Scan') {
       steps {
-        sh '.venv/bin/activate'
         snykSecurity(
           snykInstallation: 'Default',   
           snykTokenId: 'snyk',
