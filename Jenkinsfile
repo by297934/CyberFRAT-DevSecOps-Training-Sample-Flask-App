@@ -16,8 +16,8 @@ pipeline {
     stage('Snyk Scan') {
       steps {
         snykSecurity(
-          snykInstallation: 'Default',   // Replace with your Snyk installation name
-          snykTokenId: env.snyk_key
+          snykInstallation: 'Default',   
+          snykTokenId: '3a8477f7-669b-4302-9981-fbab35b71805'
           )
       }
     }
