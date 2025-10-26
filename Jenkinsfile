@@ -3,7 +3,7 @@ pipeline {
     registry = "bharat1200/testrep"
     registryCredential = "dockcred"
     dockerImage = ''
-    safety_key = credentials('safety')
+    snyk_key = credentials('snyk')
   }
   agent any
 
@@ -17,10 +17,12 @@ pipeline {
           steps { 
             script { 
               sh'''
-              pipx install safety 
-              /var/lib/jenkins/.local/bin/safety --key "${safety_key}" scan "${WORKSPACE}" > safety.txt || true
+              apt install npm --force
+              nmp install snyk -g --force
+              synk auth "${snyk_key}"
+              synk code test > synk.txt || true
               '''
-              archiveArtifacts artifacts: 'safety.txt', allowEmptyArchive: true 
+              archiveArtifacts artifacts: 'snyk.txt', allowEmptyArchive: true 
             } 
           } 
         }
