@@ -16,10 +16,8 @@ pipeline {
       steps {
         script {
           sh '''
-          python3 -m venv myvenv
           . myvenv/bin/activate
-          ls
-          pip install -r requirement.txt
+          pip install -r requirements.txt
           '''
         }
       }
