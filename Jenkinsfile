@@ -15,9 +15,6 @@ pipeline {
     }
     stage('Snyk Scan') {
       steps {
-        snykSecurity(
-          snykInstallation: 'Default',           // matches name from Tools config
-          )
         script {
           sh '''
           synk auth "${snyk}"
