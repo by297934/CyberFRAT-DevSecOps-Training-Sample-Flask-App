@@ -12,6 +12,17 @@ pipeline {
         checkout scm
       }
     }
+    stage('setting up enviorment') {
+      steps {
+        script {
+          sh '''
+          python3 -m venv myvenv
+          source myvenv/bin/activate
+          pip install -r requirement.txt
+          '''
+        }
+      }
+    }    
     stage('Snyk Scan') {
       steps {
         sh '.venv/bin/activate'
@@ -22,7 +33,6 @@ pipeline {
           monitorProjectOnBuild: true,
           organisation: 'test',
           projectName: 'MyJenkinsProject',
-          targetFile: 'requirements.txt',
           )
       }
     }
