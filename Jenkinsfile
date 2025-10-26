@@ -14,6 +14,7 @@ pipeline {
     }
     stage('Snyk Scan') {
       steps {
+        sh '.venv/bin/activate'
         snykSecurity(
           snykInstallation: 'Default',   
           snykTokenId: 'snyk',
@@ -21,6 +22,7 @@ pipeline {
           monitorProjectOnBuild: true,
           organisation: 'test',
           projectName: 'MyJenkinsProject',
+          targetFile: 'requirements.txt',
           )
       }
     }
