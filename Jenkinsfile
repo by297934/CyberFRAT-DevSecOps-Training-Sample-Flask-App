@@ -15,12 +15,10 @@ pipeline {
     }
     stage('Snyk Scan') {
       steps {
-        script {
-          sh '''
-          synk auth "${snyk}"
-          synk code test
-          '''
-        }
+        snykSecurity(
+          snykInstallation: 'Default',   // Replace with your Snyk installation name
+          snykTokenId: env.snyk_key
+          )
       }
     }
     stage('Build Docker Image') {
