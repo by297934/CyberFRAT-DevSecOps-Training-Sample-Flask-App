@@ -13,19 +13,18 @@ pipeline {
         checkout scm
       }
     }
-    stage('scan') {
-          steps { 
-            script { 
-              sh'''
-              npm install snyk -g --force
-              synk auth "${snyk_key}"
-              synk code test > synk.txt || true
-              '''
-              archiveArtifacts artifacts: 'snyk.txt', allowEmptyArchive: true 
-            } 
-          } 
-        }
-
+    stage('Snyk Scan') {
+      steps {
+        snykSecurity(
+          snykInstallation: 'Default',           // matches name from Tools config
+          snykTokenId: 'snyk_key',         // your credential ID
+          failOnIssues: true,
+          monitorProjectOnBuild: true,
+          severity: 'medium',
+          additionalArguments: '--all-projects'
+        )
+      }
+    }
     stage('Build Docker Image') {
       steps {
         script {
