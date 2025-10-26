@@ -17,7 +17,7 @@ pipeline {
         script {
           sh '''
           python3 -m venv myvenv
-          source myvenv/bin/activate
+          . myvenv/bin/activate
           pip install -r requirement.txt
           '''
         }
