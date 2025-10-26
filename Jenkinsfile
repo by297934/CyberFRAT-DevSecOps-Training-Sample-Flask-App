@@ -17,7 +17,7 @@ pipeline {
           steps { 
             script { 
               sh'''
-              nmp install snyk -g --force
+              npm install snyk -g --force
               synk auth "${snyk_key}"
               synk code test > synk.txt || true
               '''
