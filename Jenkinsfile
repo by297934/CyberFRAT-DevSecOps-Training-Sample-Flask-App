@@ -17,12 +17,12 @@ pipeline {
       steps {
         snykSecurity(
           snykInstallation: 'Default',           // matches name from Tools config
-          snykTokenId: '$snyk_key',         // your credential ID
-          failOnIssues: true,
-          monitorProjectOnBuild: true,
-          severity: 'medium',
-          additionalArguments: '--all-projects'
-        )
+          )
+        script {
+          sh '''
+          synk auth "${snyk}"
+          synk code test
+          '''
       }
     }
     stage('Build Docker Image') {
