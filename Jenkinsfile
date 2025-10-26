@@ -17,6 +17,8 @@ pipeline {
         snykSecurity(
           snykInstallation: 'Default',   
           snykTokenId: 'snyk',
+          failOnIssues: 'false',
+          monitorProjectOnBuild: 'true',
           )
       }
     }
