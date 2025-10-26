@@ -15,15 +15,11 @@ pipeline {
      
     stage('Snyk Scan') {
       steps {
-        sh 'ls'
         sh '. myvenv/bin/activate'
         snykSecurity(
           snykInstallation: 'Default',   
           snykTokenId: 'snyk',
           failOnIssues: false,
-          monitorProjectOnBuild: true,
-          organisation: 'test',
-          projectName: 'MyJenkinsProject',
           )
       }
     }
