@@ -3,6 +3,7 @@ pipeline {
     registry = "bharat1200/testrep"
     registryCredential = "dockcred"
     dockerImage = ''
+    snyk_key = credentials(snyk)
   }
   agent any
 
@@ -16,7 +17,7 @@ pipeline {
       steps {
         snykSecurity(
           snykInstallation: 'Default',           // matches name from Tools config
-          snykTokenId: 'snyk',         // your credential ID
+          snykTokenId: '$snyk_key',         // your credential ID
           failOnIssues: true,
           monitorProjectOnBuild: true,
           severity: 'medium',
