@@ -3,7 +3,7 @@ pipeline {
     registry = "bharat1200/testrep"
     registryCredential = "dockcred"
     dockerImage = ''
-    snyk_key = credentials(snyk)
+    snyk_key = credentials('snyk')
   }
   agent any
 
