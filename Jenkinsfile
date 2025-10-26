@@ -23,6 +23,7 @@ pipeline {
           synk auth "${snyk}"
           synk code test
           '''
+        }
       }
     }
     stage('Build Docker Image') {
