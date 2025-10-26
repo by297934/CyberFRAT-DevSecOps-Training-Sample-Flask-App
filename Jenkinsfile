@@ -12,18 +12,11 @@ pipeline {
         checkout scm
       }
     }
-    stage('setting up enviorment') {
-      steps {
-        script {
-          sh '''
-          . myvenv/bin/activate
-          pip install -r requirements.txt
-          '''
-        }
-      }
-    }    
+     
     stage('Snyk Scan') {
       steps {
+        sh 'ls'
+        sh '. myvenv/bin/activate'
         snykSecurity(
           snykInstallation: 'Default',   
           snykTokenId: 'snyk',
