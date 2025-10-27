@@ -20,7 +20,7 @@ pipeline {
           sh '''
           . myvenv/bin/activate
           snyk auth "$snyk_key"
-          /var/lib/jenkins/tools/io.snyk.jenkins.tools.SnykInstallation/Default/snyk-linux test
+          snyk test --org=e7680b53-402f-451f-b9c1-f3d10131b14d
           '''
         }
       }
