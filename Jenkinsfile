@@ -22,6 +22,7 @@ pipeline {
           snyk auth "$snyk_key"
           /var/lib/jenkins/tools/io.snyk.jenkins.tools.SnykInstallation/Default/snyk-linux test
           '''
+        }
       }
     }
     stage('Build Docker Image') {
