@@ -15,6 +15,10 @@ pipeline {
      
     stage('Snyk Scan') {
       steps {
+        sh '''
+        . venv/bin/activate
+        pip install -r requirements.txt
+        '''
         snykSecurity(
           snykInstallation: 'Default',
           snykTokenId: 'snyk',
