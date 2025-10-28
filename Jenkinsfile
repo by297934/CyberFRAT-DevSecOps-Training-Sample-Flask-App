@@ -3,6 +3,7 @@ pipeline {
     registry = "bharat1200/testrep"
     registryCredential = "dockcred"
     dockerImage = ''
+    snyk_key = credentials('snyk2')
   }
   agent any
 
@@ -15,18 +16,18 @@ pipeline {
      
     stage('Snyk Scan') {
       steps {
-        sh '''
-        . venv/bin/activate
-        pip install -r requirements.txt
-        '''
-        snykSecurity(
-          snykInstallation: 'Default',
-          snykTokenId: 'snyk',
-          failOnIssues: false,
-          targetFile: 'requirements.txt'
-          )
+        script {
+          sh '''
+          curl https://static.snyk.io/cli/latest/snyk-linux -o snyk
+          chmod +x ./snyk
+          . myvenv/bin/activate
+          ./snyk auth "$snyk_key"
+          ./snyk monitor --all-projects --org=e7680b53-402f-451f-b9c1-f3d10131b14d || true
+          '''
+        }
       }
     }
+
     stage('Build Docker Image') {
       steps {
         script {
