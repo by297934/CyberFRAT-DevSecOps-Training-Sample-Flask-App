@@ -13,20 +13,6 @@ pipeline {
         checkout scm
       }
     }
-     
-    stage('Snyk Scan') {
-      steps {
-        script {
-          sh '''
-          curl https://static.snyk.io/cli/latest/snyk-linux -o snyk
-          chmod +x ./snyk
-          . myvenv/bin/activate
-          ./snyk auth "$snyk_key"
-          ./snyk monitor --all-projects --org=e7680b53-402f-451f-b9c1-f3d10131b14d || true
-          '''
-        }
-      }
-    }
     
     stage ('SAST SCan') {
       steps {
