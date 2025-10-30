@@ -19,7 +19,7 @@ pipeline {
         script {
           sh '''
           docker pull semgrep/semgrep
-          docker run -e SEMGREP_APP_TOKEN=ed21e970f88e755aa143c273bd72d085e7b8a3a5bf4ea07c0e1adaa75081867d --rm -v "${WORKSPACE}:/src" semgrep/semgrep semgrep ci
+          docker run -e SEMGREP_APP_TOKEN=ed21e970f88e755aa143c273bd72d085e7b8a3a5bf4ea07c0e1adaa75081867d --rm -v "${WORKSPACE}:/src" semgrep/semgrep semgrep scan
           '''
         }
       }
